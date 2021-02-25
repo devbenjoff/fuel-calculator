@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fuel_calculator/splash_screen.dart';
+import './screens/home_screen.dart';
+import './screens/splash_screen.dart';
+import './screens/reminders_screen.dart';
 
 void main() => runApp(FuelCalculatorApp());
 
@@ -8,8 +10,14 @@ class FuelCalculatorApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => SplashScreen(),
+        '/home_page': (context) => HomePage(),
+        '/reminders': (context) => Reminders(),
+      },
     );
   }
 }

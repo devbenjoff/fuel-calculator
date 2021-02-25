@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:fuel_calculator/home_page.dart';
+import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
