@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:fuel_calculator/screens/reminders_screen.dart';
 import 'package:fuel_calculator/screens/home_screen.dart';
 import 'main.dart';
+import 'screens/map_screen.dart';
+import 'screens/splash_screen.dart';
+import 'constants.dart';
 
 class DrawerListTile extends StatelessWidget {
-  DrawerListTile({@required this.listIcon, this.text});
+  DrawerListTile(
+      {@required this.listIcon, @required this.text, @required this.onTap});
 
   final String text;
   final IconData listIcon;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class DrawerListTile extends StatelessWidget {
         text,
         style: TextStyle(fontSize: 16),
       ),
-      onTap: () {},
+      onTap: onTap,
     );
   }
 }
@@ -43,9 +48,22 @@ class MainDrawer extends StatelessWidget {
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      'Fuel Calculator',
-                      style: TextStyle(fontSize: 25),
+                    FlatButton(
+                      child: Text(
+                        'Fuel Calculator',
+                        style: TextStyle(fontSize: 25),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(
+                              latitude: kLatitude,
+                              longitude: kLongitude,
+                            ),
+                          ),
+                        );
+                      },
                     )
                   ],
                 ),
@@ -54,10 +72,12 @@ class MainDrawer extends StatelessWidget {
             DrawerListTile(
               listIcon: Icons.add_alert,
               text: 'Reminders',
+              onTap: () {},
             ),
             DrawerListTile(
               listIcon: Icons.location_on_rounded,
               text: 'Trip Log',
+              onTap: () {},
             ),
             const Divider(
               height: 0.5,
@@ -65,14 +85,30 @@ class MainDrawer extends StatelessWidget {
             DrawerListTile(
               listIcon: Icons.bar_chart,
               text: 'Statistics',
+              onTap: () {},
             ),
             DrawerListTile(
               listIcon: Icons.show_chart_sharp,
               text: 'Charts',
+              onTap: () {},
             ),
             DrawerListTile(
               listIcon: Icons.map,
               text: 'Map',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        MapScreen(latitude: kLatitude, longitude: kLongitude),
+                  ),
+                );
+              },
+            ),
+            DrawerListTile(
+              listIcon: Icons.local_gas_station,
+              text: 'Gas Station',
+              onTap: () {},
             ),
             const Divider(
               height: 0.5,
@@ -80,10 +116,12 @@ class MainDrawer extends StatelessWidget {
             DrawerListTile(
               listIcon: Icons.credit_card,
               text: 'Cost stats',
+              onTap: () {},
             ),
             DrawerListTile(
               listIcon: Icons.show_chart,
               text: 'Cost charts',
+              onTap: () {},
             ),
             const Divider(
               height: 0.5,
@@ -91,10 +129,12 @@ class MainDrawer extends StatelessWidget {
             DrawerListTile(
               listIcon: Icons.report,
               text: 'Create Report',
+              onTap: () {},
             ),
             DrawerListTile(
               listIcon: Icons.settings,
               text: 'Settings',
+              onTap: () {},
             ),
           ],
         ),

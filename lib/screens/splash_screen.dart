@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'home_screen.dart';
+import '../services/location.dart';
+import 'package:fuel_calculator/constants.dart';
 
 class SplashScreen extends StatefulWidget {
+  double latitude;
+  double longitude;
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Future<void> getLocationData() async {
+    Location location = Location();
+
+    await location.getLocation();
+
+    widget.latitude = location.latitude;
+    widget.longitude = location.longitude;
+    kLatitude = widget.latitude;
+    kLongitude = widget.longitude;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -20,11 +36,14 @@ class _SplashScreenState extends State<SplashScreen> {
     return Timer(_duration, navigationPage);
   }
 
-  void navigationPage() {
+  Future<void> navigationPage() async {
+    await getLocationData();
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (BuildContext context) => HomePage(),
+        builder: (BuildContext context) =>
+            HomePage(latitude: widget.latitude, longitude: widget.longitude),
       ),
     );
   }
